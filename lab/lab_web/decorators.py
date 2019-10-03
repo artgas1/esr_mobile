@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 
 
-def anonymous_required(view_function, redirect_to=None):
+def anonymous_required(view_function, redirect_to='index'):
     return AnonymousRequired(view_function, redirect_to)
 
 

@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, login as auth_login
 from .decorators import *
 from django.conf import settings
+from .dbfunctions import *
 
 # Create your views here.
 
@@ -51,21 +52,8 @@ def add_order(request):
     # work in orders
     # operations_in_orders
     if request.method == 'POST':
-        order_form = OrderForm(request.POST)
-        work_form = WorkInOrdersForm(request.POST)
-        operations_form = OperationInOrdersForm(request.POST)
-        files_form = FilesInOrdersForm(request.POST)
-        forms = [order_form, work_form, operations_form, files_form]
-        are_valid = True
-        for i in forms:
-            if not i.is_valid():
-                are_valid = False
-        if are_valid:
-            order = order_form.save()
-            for i in forms[1:]:
-                i.save(commit='False')
-                i.order = order
-
+        if add_order_function(request):
+            return redirect('index')
     return render(request, 'add_order.html',
                   {'order': OrderForm, 'work': WorkInOrdersForm, 'operations': OperationInOrdersForm,
                    'files': FilesInOrdersForm})

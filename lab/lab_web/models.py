@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -28,6 +29,7 @@ class Doctors(models.Model):
     name = models.CharField(max_length=50)
     contacts = models.CharField(max_length=100, blank=True)
     comment = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Doctors"
@@ -37,6 +39,7 @@ class Clinics(models.Model):
     name = models.CharField(max_length=50)
     contacts = models.CharField(max_length=100, blank=True)
     comment = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Clinics"
@@ -49,6 +52,7 @@ class Orders(models.Model):
     comment = models.CharField(max_length=100)
     progress = models.CharField(max_length=100, choices=choices_progress)
     deadline = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Orders"
@@ -57,6 +61,7 @@ class Orders(models.Model):
 class FilesInOrders(models.Model):
     file = models.FileField(upload_to=get_file_path)
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Files In Orders"
@@ -64,6 +69,7 @@ class FilesInOrders(models.Model):
 
 class Works(models.Model):
     work = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Works"
@@ -73,6 +79,7 @@ class WorkInOrders(models.Model):
     work = models.ForeignKey(Works, on_delete=models.CASCADE)
     amount = models.IntegerField()
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Work In Orders"
@@ -80,6 +87,7 @@ class WorkInOrders(models.Model):
 
 class Operations(models.Model):
     operation = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Operations"
@@ -89,6 +97,7 @@ class Technicians(models.Model):
     name = models.CharField(max_length=50)
     contacts = models.CharField(max_length=100, blank=True)
     comment = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Technicians"
@@ -101,6 +110,7 @@ class OperationsInOrders(models.Model):
     deadline = models.DateField()
     is_done = models.BooleanField()
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Operation In Orders"
@@ -109,6 +119,7 @@ class OperationsInOrders(models.Model):
 class OperationsInWork(models.Model):
     work = models.ForeignKey(Works, on_delete=models.CASCADE)
     operation = models.ForeignKey(Operations, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Operations In Works"
@@ -119,6 +130,7 @@ class WorksPriceList(models.Model):
     price_list = models.CharField(max_length=100)
     price = models.IntegerField()
     work = models.ForeignKey(Works, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Works Price Lists"
@@ -128,6 +140,7 @@ class OperationsPriceList(models.Model):
     technician = models.ForeignKey(Technicians, on_delete=models.CASCADE)
     price = models.IntegerField()
     operation = models.ForeignKey(Operations, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Operations Price Lists"
@@ -138,6 +151,7 @@ class Materials(models.Model):
     unit = models.CharField(max_length=100, choices=choices_materials_unit)
     limit = models.IntegerField()
     comment = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Materials"
@@ -146,6 +160,7 @@ class Materials(models.Model):
 class MaterialsOnStock(models.Model):
     material = models.ForeignKey(Materials, on_delete=models.CASCADE)
     amount = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Materials On Stock"
@@ -155,6 +170,7 @@ class MaterialUsedOnOperation(models.Model):
     operation = models.ForeignKey(Operations, on_delete=models.CASCADE)
     material = models.ForeignKey(Materials, on_delete=models.CASCADE)
     amount = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Materials Used on Operation"
