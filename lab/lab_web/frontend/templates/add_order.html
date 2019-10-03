@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление заказа</title>
+</head>
+<body>
+<h1>New post</h1>
+<form method="POST" class="post-form">{% csrf_token %}
+    <!--
+    <p>Doctor</p>
+    {{ doctor.as_p }}
+    <p>Clinic</p>
+    {{ clinic.as_p }} -->
+    <p>Order</p>
+    {{order.as_p}}
+    <p>Work</p>
+    {{work.as_p}}
+    <p>Operations</p>
+    {{operations.as_p}}
+    <p>Files</p>
+    {{files.as_p}}
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
