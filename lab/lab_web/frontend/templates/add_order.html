@@ -7,19 +7,29 @@
 <body>
 <h1>New post</h1>
 <form method="POST" class="post-form">{% csrf_token %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <!--
     <p>Doctor</p>
     {{ doctor.as_p }}
     <p>Clinic</p>
     {{ clinic.as_p }} -->
     <p>Order</p>
-    {{order.as_p}}
+    {{ order.as_p }}
     <p>Work</p>
-    {{work.as_p}}
+    {{ work.as_p }}
     <p>Operations</p>
-    {{operations.as_p}}
+    {{ operations.as_p }}
     <p>Files</p>
-    {{files.as_p}}
+    {{ files.as_p }}
     <button type="submit">Save</button>
 </form>
 </body>

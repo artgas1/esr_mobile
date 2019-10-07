@@ -1,4 +1,3 @@
-from .models import *
 from .forms import *
 
 
@@ -14,7 +13,7 @@ def add_clinic_function(name, contacts, comment):
     return clinic
 
 
-def add_order_function(request): # Конструкция try/except требует проверки
+def add_order_function(request):  # Конструкция try/except требует проверки
     try:
         order_form = OrderForm(request.POST)
         work_form = WorkInOrdersForm(request.POST)
@@ -37,4 +36,3 @@ def add_order_function(request): # Конструкция try/except требу�
         return False
     except Exception as e:
         raise e
-
