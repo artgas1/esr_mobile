@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import *
 from django.contrib.auth import authenticate, login as auth_login
-from .decorators import *
+from ..decorators import *
+from ..forms import *
 from django.conf import settings
-from .dbfunctions import *
-
 # Create your views here.
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -47,13 +45,4 @@ def register(request):
                    'registered': registered})
 
 
-def add_order(request):
-    # files in orders
-    # work in orders
-    # operations_in_orders
-    if request.method == 'POST':
-        if add_order_function(request):
-            return redirect('index')
-    return render(request, 'add_order.html',
-                  {'order': OrderForm, 'work': WorkInOrdersForm, 'operations': OperationInOrdersForm,
-                   'files': FilesInOrdersForm})
+

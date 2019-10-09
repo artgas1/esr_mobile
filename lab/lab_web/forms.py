@@ -13,19 +13,19 @@ class UserFormRegistration(forms.ModelForm):
 
 class DoctorForm(forms.ModelForm):
     class Meta:
-        model = Doctors
+        model = Doctor
         fields = '__all__'
 
 
 class ClinicForm(forms.ModelForm):
     class Meta:
-        model = Clinics
+        model = Clinic
         fields = '__all__'
 
 
 class OrderForm(forms.ModelForm):
     class Meta:
-        model = Orders
+        model = Order
         fields = '__all__'
 
 
