@@ -34,6 +34,9 @@ class Doctor(models.Model):
     class Meta:
         verbose_name_plural = "Doctors"
 
+    def __str__(self):
+        return self.name
+
 
 class Clinic(models.Model):
     name = models.CharField(max_length=50)
@@ -43,6 +46,9 @@ class Clinic(models.Model):
 
     class Meta:
         verbose_name_plural = "Clinics"
+
+    def __str__(self):
+        return self.name
 
 
 class Order(models.Model):
@@ -57,6 +63,9 @@ class Order(models.Model):
     class Meta:
         verbose_name_plural = "Orders"
 
+    def __str__(self):
+        return '{} {} {}'.format(self.patient, self.doctor, self.clinic)
+
 
 class FilesInOrders(models.Model):
     file = models.FileField(upload_to=get_file_path)
@@ -66,6 +75,9 @@ class FilesInOrders(models.Model):
     class Meta:
         verbose_name_plural = "Files In Orders"
 
+    def __str__(self):
+        return '{} {}'.format(self.file.name, self.order)
+
 
 class Work(models.Model):
     work = models.CharField(max_length=100)
@@ -73,6 +85,9 @@ class Work(models.Model):
 
     class Meta:
         verbose_name_plural = "Works"
+
+    def __str__(self):
+        return self.work
 
 
 class WorkInOrders(models.Model):
@@ -84,6 +99,9 @@ class WorkInOrders(models.Model):
     class Meta:
         verbose_name_plural = "Work In Orders"
 
+    def __str__(self):
+        return '{} {} {}'.format(self.work, self.amount, self.order)
+
 
 class Operation(models.Model):
     operation = models.CharField(max_length=100)
@@ -91,6 +109,9 @@ class Operation(models.Model):
 
     class Meta:
         verbose_name_plural = "Operations"
+
+    def __str__(self):
+        return self.operation
 
 
 class Technician(models.Model):
@@ -101,6 +122,9 @@ class Technician(models.Model):
 
     class Meta:
         verbose_name_plural = "Technicians"
+
+    def __str__(self):
+        return self.name
 
 
 class OperationsInOrders(models.Model):
@@ -115,6 +139,9 @@ class OperationsInOrders(models.Model):
     class Meta:
         verbose_name_plural = "Operation In Orders"
 
+    def __str__(self):
+        return '{} {} {} {}'.format(self.operation, self.amount, self.technician, self.order)
+
 
 class OperationsInWork(models.Model):
     work = models.ForeignKey(Work, on_delete=models.CASCADE)
@@ -123,6 +150,9 @@ class OperationsInWork(models.Model):
 
     class Meta:
         verbose_name_plural = "Operations In Works"
+
+    def __str__(self):
+        return '{} {}'.format(self.work, self.operation)
 
 
 class WorksPriceList(models.Model):
@@ -135,6 +165,9 @@ class WorksPriceList(models.Model):
     class Meta:
         verbose_name_plural = "Works Price Lists"
 
+    def __str__(self):
+        return '{} {} {}'.format(self.clinic, self.price_list if self.price_list else self.price, self.work)
+
 
 class OperationsPriceList(models.Model):
     technician = models.ForeignKey(Technician, on_delete=models.CASCADE)
@@ -145,9 +178,12 @@ class OperationsPriceList(models.Model):
     class Meta:
         verbose_name_plural = "Operations Price Lists"
 
+    def __str__(self):
+        return '{} {} {}'.format(self.technician, self.operation, self.price)
+
 
 class Material(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     unit = models.CharField(max_length=100, choices=choices_materials_unit)
     limit = models.IntegerField()
     comment = models.CharField(max_length=100, blank=True)
@@ -156,14 +192,20 @@ class Material(models.Model):
     class Meta:
         verbose_name_plural = "Materials"
 
+    def __str__(self):
+        return self.name
+
 
 class MaterialsOnStock(models.Model):
-    material = models.ForeignKey(Material, on_delete=models.CASCADE)
+    material = models.OneToOneField(Material, on_delete=models.CASCADE)
     amount = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Materials On Stock"
+
+    def __str__(self):
+        return '{} {}'.format(self.material, self.amount)
 
 
 class MaterialUsedOnOperation(models.Model):
@@ -174,3 +216,6 @@ class MaterialUsedOnOperation(models.Model):
 
     class Meta:
         verbose_name_plural = "Materials Used on Operation"
+
+    def __str__(self):
+        return '{} {}'.format(self.operation, self.material)
