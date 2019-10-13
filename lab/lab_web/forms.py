@@ -29,12 +29,6 @@ class OrderForm(forms.ModelForm):
         fields = '__all__'
 
 
-class FilesInOrdersForm(forms.ModelForm):
-    class Meta:
-        model = FilesInOrders
-        exclude = ['order']
-
-
 class WorkInOrdersForm(forms.ModelForm):
     class Meta:
         model = WorkInOrders
