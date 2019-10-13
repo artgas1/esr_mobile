@@ -12,12 +12,12 @@ Doctor - DoctorSerializer - DoctorView
 Clinic - ClinicSerializer - ClinicView
 Operation - OperationSerializer - OperationView
 Work - WorkSerializer - WorkView
-OperationsInWork - OperationsInWorkSerializer - OperationsInWorkView
-Order - 
+OperationsInWork - OperationsInWorkSerializer
+Order - OrderSerializer - OrderView
 File - FileSerializer - FileView
 Technician - TechnicianSerializer - TechnicianView
-WorkInOrders - 
-OperationInOrders - 
+WorkInOrders - WorkInOrdersSerializer - WorkInOrdersView
+OperationInOrders - OperationsInOrdersSerializer - OperationsInOrdersView
 WorksPriceList - 
 OperationPriceList - 
 MaterialsOnStock - MaterialsOnStockSerializer - MaterialsOnStockView
@@ -134,6 +134,39 @@ class MaterialUsedOnOperationView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return MaterialUsedOnOperation.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OrderView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class WorkInOrdersView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = WorkInOrdersSerializer
+
+    def get_queryset(self):
+        return WorkInOrders.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OperationsInOrdersView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OperationsInOrdersSerializer
+
+    def get_queryset(self):
+        return OperationsInOrders.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

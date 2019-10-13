@@ -2,23 +2,22 @@ from rest_framework import serializers
 from ..models import *
 
 '''
-
 Models - Serializer - ViewSet 
-Material - MaterialSerializer
-Doctor - DoctorSerializer
-Clinic - ClinicSerializer
-Operation - OperationSerializer
-Work - WorkSerializer
+Material - MaterialSerializer - MaterialView
+Doctor - DoctorSerializer - DoctorView
+Clinic - ClinicSerializer - ClinicView
+Operation - OperationSerializer - OperationView
+Work - WorkSerializer - WorkView
 OperationsInWork - OperationsInWorkSerializer
-Order - 
-File - FileSerializer
-Technician - TechnicianSerializer
-WorkInOrders - 
-OperationInOrders - 
+Order - OrderSerializer - OrderView
+File - FileSerializer - FileView
+Technician - TechnicianSerializer - TechnicianView
+WorkInOrders - WorkInOrdersSerializer - WorkInOrdersView
+OperationInOrders - OperationsInOrdersSerializer - OperationsInOrdersView
 WorksPriceList - 
 OperationPriceList - 
-MaterialsOnStock - MaterialsOnStockSerializer
-MaterialUsedOnOperation -  MaterialUsedOnOperationSerializer
+MaterialsOnStock - MaterialsOnStockSerializer - MaterialsOnStockView
+MaterialUsedOnOperation -  MaterialUsedOnOperationSerializer - MaterialUsedOnOperationView
 '''
 
 
@@ -103,6 +102,30 @@ class MaterialUsedOnOperationSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    doctor = UserFilteredPrimaryKey(Doctor.objects.all())
+    clinic = UserFilteredPrimaryKey(Clinic.objects.all())
+    work = UserFilteredPrimaryKey(Work.objects.all())
+    operations = UserFilteredPrimaryKey(Operation.objects.all())
+    files = UserFilteredPrimaryKey(File.objects.all())
+
     class Meta:
         model = Order
+        exclude = ['user']
+
+
+class WorkInOrdersSerializer(serializers.ModelSerializer):
+    order = UserFilteredPrimaryKey(Order.objects.all())
+    work = UserFilteredPrimaryKey(Work.objects.all())
+
+    class Meta:
+        model = WorkInOrders
+        exclude = ['user']
+
+
+class OperationsInOrdersSerializer(serializers.ModelSerializer):
+    order = UserFilteredPrimaryKey(Order.objects.all())
+    operations = UserFilteredPrimaryKey(Operation.objects.all())
+
+    class Meta:
+        model = OperationsInOrders
         exclude = ['user']

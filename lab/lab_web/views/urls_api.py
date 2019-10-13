@@ -12,5 +12,9 @@ router.register('operations_in_work', OperationsInWorkView, basename='operation_
 router.register('technicians', TechnicianView, basename='technician')
 router.register('files', FileView, basename='file')
 router.register('materials_used_on_operation', MaterialUsedOnOperationView, basename='material_used_on_operation')
+router.register('orders', OrderView, basename='order')
+router.register('work_in_orders', WorkInOrdersView, basename='work_in_orders')
+router.register('operations_in_orders', OperationsInOrdersView, basename='operation_in_orders')
+
 
 urlpatterns = router.urls

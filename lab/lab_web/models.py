@@ -86,6 +86,7 @@ class Clinic(models.Model):
 class Operation(models.Model):
     operation = models.CharField(max_length=100, unique=True)
     material = models.ManyToManyField(Material, through='MaterialUsedOnOperation')
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -140,8 +141,14 @@ class Order(models.Model):
 
 class File(models.Model):
     file = models.FileField(upload_to=get_file_path)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='files', on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Files"
+
+    def __str__(self):
+        return self.file.name
 
 
 class Technician(models.Model):
