@@ -170,3 +170,47 @@ class OperationsInOrdersView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class WorksPriceListView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = WorksPriceListSerializer
+
+    def get_queryset(self):
+        return WorksPriceList.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class WorkPriceView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = WorkPriceSerializer
+
+    def get_queryset(self):
+        return WorkPrice.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OperationsPriceListView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OperationsPriceListSerializer
+
+    def get_queryset(self):
+        return OperationsPriceList.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OperationPriceView(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = OperationPriceSerializer
+
+    def get_queryset(self):
+        return OperationPrice.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

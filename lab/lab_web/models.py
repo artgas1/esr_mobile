@@ -36,7 +36,9 @@ File
 Technician
 WorkInOrders
 OperationInOrders
+WorkPriceInPriceList
 WorksPriceList
+OperationPriceInPriceList
 OperationPriceList
 MaterialsOnStock
 MaterialUsedOnOperation 
@@ -52,32 +54,6 @@ class Material(models.Model):
 
     class Meta:
         verbose_name_plural = "Materials"
-
-    def __str__(self):
-        return self.name
-
-
-class Doctor(models.Model):
-    name = models.CharField(max_length=50)
-    contacts = models.CharField(max_length=100, blank=True)
-    comment = models.CharField(max_length=100, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Doctors"
-
-    def __str__(self):
-        return self.name
-
-
-class Clinic(models.Model):
-    name = models.CharField(max_length=50)
-    contacts = models.CharField(max_length=100, blank=True)
-    comment = models.CharField(max_length=100, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Clinics"
 
     def __str__(self):
         return self.name
@@ -99,7 +75,6 @@ class Operation(models.Model):
 class Work(models.Model):
     work = models.CharField(max_length=100, unique=True)
     operations = models.ManyToManyField(Operation, through='OperationsInWork', blank=True)
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -107,6 +82,84 @@ class Work(models.Model):
 
     def __str__(self):
         return self.work
+
+
+class WorksPriceList(models.Model):
+    price_list = models.CharField(max_length=100, unique=True)
+    work = models.ManyToManyField(Work, through='WorkPrice', blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Works Price Lists"
+
+    def __str__(self):
+        return '{}'.format(self.price_list)
+
+
+class WorkPrice(models.Model):
+    price_list = models.ForeignKey(WorksPriceList, on_delete=models.CASCADE)
+    work = models.ForeignKey(Work, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Work Price In Price List"
+
+    def __str__(self):
+        return '{} {} {}'.format(self.price_list, self.work, self.price)
+
+
+class OperationsPriceList(models.Model):
+    price_list = models.CharField(max_length=100)
+    operation = models.ManyToManyField(Operation, through='OperationPrice', blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Operations Price Lists"
+
+    def __str__(self):
+        return '{}'.format(self.price_list)
+
+
+class OperationPrice(models.Model):
+    price_list = models.ForeignKey(OperationsPriceList, on_delete=models.CASCADE)
+    operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Operation Price In Price List"
+
+    def __str__(self):
+        return '{} {} {}'.format(self.price_list, self.operation, self.price)
+
+
+class Doctor(models.Model):
+    name = models.CharField(max_length=50)
+    contacts = models.CharField(max_length=100, blank=True)
+    comment = models.CharField(max_length=100, blank=True)
+    price_list = models.ForeignKey(WorksPriceList, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Doctors"
+
+    def __str__(self):
+        return self.name
+
+
+class Clinic(models.Model):
+    name = models.CharField(max_length=50)
+    contacts = models.CharField(max_length=100, blank=True)
+    comment = models.CharField(max_length=100, blank=True)
+    price_list = models.ForeignKey(WorksPriceList, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Clinics"
+
+    def __str__(self):
+        return self.name
 
 
 class OperationsInWork(models.Model):
@@ -155,6 +208,7 @@ class Technician(models.Model):
     name = models.CharField(max_length=50)
     contacts = models.CharField(max_length=100, blank=True)
     comment = models.CharField(max_length=100, blank=True)
+    price_list = models.ForeignKey(OperationsPriceList, on_delete=models.CASCADE, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -191,33 +245,6 @@ class OperationsInOrders(models.Model):
 
     def __str__(self):
         return '{} {} {} {}'.format(self.operation, self.amount, self.technician, self.order)
-
-
-class WorksPriceList(models.Model):
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, blank=True)
-    price_list = models.CharField(max_length=100)
-    price = models.IntegerField()
-    work = models.ForeignKey(Work, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Works Price Lists"
-
-    def __str__(self):
-        return '{} {} {}'.format(self.clinic, self.price_list if self.price_list else self.price, self.work)
-
-
-class OperationsPriceList(models.Model):
-    technician = models.ForeignKey(Technician, on_delete=models.CASCADE)
-    price = models.IntegerField()
-    operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = "Operations Price Lists"
-
-    def __str__(self):
-        return '{} {} {}'.format(self.technician, self.operation, self.price)
 
 
 class MaterialsOnStock(models.Model):

@@ -15,6 +15,9 @@ router.register('materials_used_on_operation', MaterialUsedOnOperationView, base
 router.register('orders', OrderView, basename='order')
 router.register('work_in_orders', WorkInOrdersView, basename='work_in_orders')
 router.register('operations_in_orders', OperationsInOrdersView, basename='operation_in_orders')
-
+router.register('works_price_lists', WorksPriceListView, basename='works_price_list')
+router.register('works_prices', WorkPriceView, basename='works_price')
+router.register('operations_price_lists', OperationsPriceListView, basename='operations_price_list')
+router.register('operations_prices', OperationPriceView, basename='operations_price')
 
 urlpatterns = router.urls

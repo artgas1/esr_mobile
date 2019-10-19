@@ -1,0 +1,10 @@
+Django==2.2.5
+django-betterforms==1.2
+django-extensions==2.2.3
+django-extra-fields==1.2.4
+django-rest-auth==0.9.5
+django-rest-registration==0.5.1
+djangorestframework==3.9.4
+pytz==2019.2
+six==1.12.0
+sqlparse==0.3.0

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from ..models import *
 
+from drf_extra_fields.relations import *
+
 '''
 Models - Serializer - ViewSet 
 Material - MaterialSerializer - MaterialView
@@ -14,17 +16,37 @@ File - FileSerializer - FileView
 Technician - TechnicianSerializer - TechnicianView
 WorkInOrders - WorkInOrdersSerializer - WorkInOrdersView
 OperationInOrders - OperationsInOrdersSerializer - OperationsInOrdersView
-WorksPriceList - 
-OperationPriceList - 
+WorkPriceInPriceList -
+WorksPriceList -
+OperationsPriceInPriceList -
+OperationsPriceList - 
 MaterialsOnStock - MaterialsOnStockSerializer - MaterialsOnStockView
 MaterialUsedOnOperation -  MaterialUsedOnOperationSerializer - MaterialUsedOnOperationView
 '''
 
 
 # Special field for filtering by user
+
+class PresentablePrimaryKeyRelatedField(
+    PresentableRelatedFieldMixin, PrimaryKeyRelatedField
+):
+    """
+    Override PrimaryKeyRelatedField to represent serializer data instead of a pk field of the object.
+    """
+    def __init__(self, queryset, presentation_serializer):
+        super(PresentablePrimaryKeyRelatedField, self).__init__()
+        self.queryset = queryset
+
+    def get_queryset(self):
+        user = self.context['request'].user
+        queryset = self.queryset.filter(user=user)
+        return queryset
+
+
 class UserFilteredPrimaryKey(serializers.PrimaryKeyRelatedField):
     def __init__(self, queryset):
         super(UserFilteredPrimaryKey, self).__init__()
+        print(queryset)
         self.queryset = queryset
 
     def get_queryset(self):
@@ -129,3 +151,34 @@ class OperationsInOrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = OperationsInOrders
         exclude = ['user']
+
+
+class WorksPriceListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorksPriceList
+        exclude = ['user']
+
+
+class WorkPriceSerializer(serializers.ModelSerializer):
+    price_list = UserFilteredPrimaryKey(WorksPriceList.objects.all())
+    work = UserFilteredPrimaryKey(Work.objects.all())
+
+    class Meta:
+        model = WorkPrice
+        exclude = ['user']
+
+
+class OperationsPriceListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OperationsPriceList
+        exclude = ['user']
+
+
+class OperationPriceSerializer(serializers.ModelSerializer):
+    price_list = UserFilteredPrimaryKey(OperationsPriceList.objects.all())
+    operation = UserFilteredPrimaryKey(Operation.objects.all())
+
+    class Meta:
+        model = OperationPrice
+        exclude = ['user']
+
