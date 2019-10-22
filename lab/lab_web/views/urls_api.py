@@ -1,5 +1,8 @@
 from rest_framework.routers import DefaultRouter
 from .api import *
+from rest_framework.authtoken import views
+from django.urls import path
+
 
 router = DefaultRouter()
 router.register('doctors', DoctorView, basename='doctor')
@@ -21,3 +24,4 @@ router.register('operations_price_lists', OperationsPriceListView, basename='ope
 router.register('operations_prices', OperationPriceView, basename='operations_price')
 
 urlpatterns = router.urls
+urlpatterns += [path('token_auth/', views.obtain_auth_token)]

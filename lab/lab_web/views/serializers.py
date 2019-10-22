@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from ..models import *
 
-from drf_extra_fields.relations import *
+# from drf_extra_fields.relations import *
+
+from .custom_fields import *
 
 '''
 Models - Serializer - ViewSet 
@@ -25,36 +27,6 @@ MaterialUsedOnOperation -  MaterialUsedOnOperationSerializer - MaterialUsedOnOpe
 '''
 
 
-# Special field for filtering by user
-
-class PresentablePrimaryKeyRelatedField(
-    PresentableRelatedFieldMixin, PrimaryKeyRelatedField
-):
-    """
-    Override PrimaryKeyRelatedField to represent serializer data instead of a pk field of the object.
-    """
-    def __init__(self, queryset, presentation_serializer):
-        super(PresentablePrimaryKeyRelatedField, self).__init__()
-        self.queryset = queryset
-
-    def get_queryset(self):
-        user = self.context['request'].user
-        queryset = self.queryset.filter(user=user)
-        return queryset
-
-
-class UserFilteredPrimaryKey(serializers.PrimaryKeyRelatedField):
-    def __init__(self, queryset):
-        super(UserFilteredPrimaryKey, self).__init__()
-        print(queryset)
-        self.queryset = queryset
-
-    def get_queryset(self):
-        user = self.context['request'].user
-        queryset = self.queryset.filter(user=user)
-        return queryset
-
-
 class DoctorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Doctor
@@ -74,20 +46,47 @@ class MaterialSerializer(serializers.ModelSerializer):
 
 
 class MaterialsOnStockSerializer(serializers.ModelSerializer):
-    material = UserFilteredPrimaryKey(Material.objects.all())
+    material = PresentablePrimaryKeyRelatedField(presentation_serializer=MaterialSerializer,
+                                                 queryset=Material.objects.all())
 
     class Meta:
         model = MaterialsOnStock
         exclude = ['user']
 
 
+class MaterialUsedOnOperationSerializer(serializers.ModelSerializer):
+    # operation = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+    #                                               queryset=Operation.objects.all())
+    material = PresentablePrimaryKeyRelatedField(presentation_serializer=MaterialSerializer,
+                                                 queryset=Material.objects.all())
+
+    class Meta:
+        model = MaterialUsedOnOperation
+        exclude = ['user', 'operation']
+
+
 class OperationSerializer(serializers.ModelSerializer):
+    # materials = PresentablePrimaryKeyRelatedField(presentation_serializer=MaterialSerializer,
+    #                                              queryset=Material.objects.all(), many=True)
+    materials = MaterialUsedOnOperationSerializer(many=True, required=False)
+
     class Meta:
         model = Operation
         exclude = ['user']
 
 
+'''
+{
+    "materials": [{"material":3, "amount":3}],
+    "operation_name": "qwwewq"
+}
+'''
+
+
 class WorkSerializer(serializers.ModelSerializer):
+    operations = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+                                                   queryset=Operation.objects.all(), many=True)
+
     class Meta:
         model = Work
         exclude = ['user']
@@ -100,8 +99,9 @@ class TechnicianSerializer(serializers.ModelSerializer):
 
 
 class OperationsInWorkSerializer(serializers.ModelSerializer):
-    operation = UserFilteredPrimaryKey(Operation.objects.all())
-    work = UserFilteredPrimaryKey(Work.objects.all())
+    operation = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+                                                  queryset=Operation.objects.all())
+    work = PresentablePrimaryKeyRelatedField(presentation_serializer=WorkSerializer, queryset=Work.objects.all())
 
     class Meta:
         model = OperationsInWork
@@ -114,21 +114,13 @@ class FileSerializer(serializers.ModelSerializer):
         exclude = ['user']
 
 
-class MaterialUsedOnOperationSerializer(serializers.ModelSerializer):
-    operation = UserFilteredPrimaryKey(Operation.objects.all())
-    material = UserFilteredPrimaryKey(Material.objects.all())
-
-    class Meta:
-        model = MaterialUsedOnOperation
-        exclude = ['user']
-
-
 class OrderSerializer(serializers.ModelSerializer):
-    doctor = UserFilteredPrimaryKey(Doctor.objects.all())
-    clinic = UserFilteredPrimaryKey(Clinic.objects.all())
-    work = UserFilteredPrimaryKey(Work.objects.all())
-    operations = UserFilteredPrimaryKey(Operation.objects.all())
-    files = UserFilteredPrimaryKey(File.objects.all())
+    doctor = PresentablePrimaryKeyRelatedField(presentation_serializer=DoctorSerializer, queryset=Doctor.objects.all())
+    clinic = PresentablePrimaryKeyRelatedField(presentation_serializer=ClinicSerializer, queryset=Clinic.objects.all())
+    work = PresentablePrimaryKeyRelatedField(presentation_serializer=WorkSerializer, queryset=Work.objects.all())
+    operation = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+                                                  queryset=Operation.objects.all())
+    files = PresentablePrimaryKeyRelatedField(presentation_serializer=FileSerializer, queryset=File.objects.all())
 
     class Meta:
         model = Order
@@ -136,8 +128,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class WorkInOrdersSerializer(serializers.ModelSerializer):
-    order = UserFilteredPrimaryKey(Order.objects.all())
-    work = UserFilteredPrimaryKey(Work.objects.all())
+    order = PresentablePrimaryKeyRelatedField(presentation_serializer=OrderSerializer, queryset=Order.objects.all())
+    work = PresentablePrimaryKeyRelatedField(presentation_serializer=WorkSerializer, queryset=Work.objects.all())
 
     class Meta:
         model = WorkInOrders
@@ -145,8 +137,9 @@ class WorkInOrdersSerializer(serializers.ModelSerializer):
 
 
 class OperationsInOrdersSerializer(serializers.ModelSerializer):
-    order = UserFilteredPrimaryKey(Order.objects.all())
-    operations = UserFilteredPrimaryKey(Operation.objects.all())
+    order = PresentablePrimaryKeyRelatedField(presentation_serializer=OrderSerializer, queryset=Order.objects.all())
+    operations = PresentablePrimaryKeyRelatedField(presentation_serializer=Operation.objects.all(),
+                                                   queryset=Operation.objects.all())
 
     class Meta:
         model = OperationsInOrders
@@ -154,14 +147,17 @@ class OperationsInOrdersSerializer(serializers.ModelSerializer):
 
 
 class WorksPriceListSerializer(serializers.ModelSerializer):
+    works = PresentablePrimaryKeyRelatedField(presentation_serializer=WorkSerializer, required=False)
+
     class Meta:
         model = WorksPriceList
         exclude = ['user']
 
 
 class WorkPriceSerializer(serializers.ModelSerializer):
-    price_list = UserFilteredPrimaryKey(WorksPriceList.objects.all())
-    work = UserFilteredPrimaryKey(Work.objects.all())
+    price_list = PresentablePrimaryKeyRelatedField(presentation_serializer=WorksPriceListSerializer,
+                                                   queryset=WorksPriceList.objects.all())
+    work = PresentablePrimaryKeyRelatedField(presentation_serializer=WorkSerializer, queryset=Work.objects.all())
 
     class Meta:
         model = WorkPrice
@@ -169,16 +165,20 @@ class WorkPriceSerializer(serializers.ModelSerializer):
 
 
 class OperationsPriceListSerializer(serializers.ModelSerializer):
+    operations = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+                                                   queryset=Operation.objects.all())
+
     class Meta:
         model = OperationsPriceList
         exclude = ['user']
 
 
 class OperationPriceSerializer(serializers.ModelSerializer):
-    price_list = UserFilteredPrimaryKey(OperationsPriceList.objects.all())
-    operation = UserFilteredPrimaryKey(Operation.objects.all())
+    price_list = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationsPriceListSerializer,
+                                                   queryset=OperationsPriceList.objects.all())
+    operation = PresentablePrimaryKeyRelatedField(presentation_serializer=OperationSerializer,
+                                                  queryset=Operation.objects.all())
 
     class Meta:
         model = OperationPrice
         exclude = ['user']
-

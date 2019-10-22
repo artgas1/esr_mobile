@@ -26,7 +26,7 @@ MaterialUsedOnOperation -  MaterialUsedOnOperationSerializer - MaterialUsedOnOpe
 
 
 class DoctorView(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = DoctorSerializer
 
     def get_queryset(self):
