@@ -1,0 +1,512 @@
+<!--
+
+=========================================================
+* Now UI Dashboard PRO - v1.4.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro
+* Copyright 2019 Creative Tim (http://www.creative-tim.com)
+
+* Designed by www.invisionapp.com Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Добавление наряда | Наряды
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jam.min.css" type="text/css">
+    <!-- CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/now-ui-dashboard-compiled.css?v=1.4.1" rel="stylesheet" />
+    <!-- Custom styles -->
+    <style>
+        .zub-order-progress {
+            width: 10px;
+            height: 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        /** IMPORTANT STYLES FOR ALL PAGES */
+        
+        .panel-header-md {
+            height: 220px;
+        }
+        
+        .panel-header-md h3 {
+            margin: 0;
+        }
+        
+        .panel-header-md+.content {
+            margin-top: -60px;
+        }
+        
+        @media(max-width:576px) {
+            .panel-header-md button {
+                width: 100%;
+            }
+            .panel-header-md {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="primary">
+            <div class="logo">
+                <a href="#" class="simple-text logo-mini">Zub</a>
+                <a href="#" class="simple-text logo-normal">Dental Lab</a>
+                <div class="navbar-minimize">
+                    <button id="minimizeSidebar" class="btn btn-simple btn-icon btn-neutral btn-round">
+                        <i class="now-ui-icons text_align-center visible-on-sidebar-regular"></i>
+                        <i class="now-ui-icons design_bullet-list-67 visible-on-sidebar-mini"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-wrapper" id="sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <img src="https://informatics.ru/images/cms/thumbs/8bb2374788957084defc0966234601d6b33d32f6/smirnov_175_175_2_80.jpg" />
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            <span>Андрей Смирнов<b class="caret"></b></span>
+                        </a>
+                        <div class="clearfix"></div>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">MP</span>
+                                        <span class="sidebar-normal">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">EP</span>
+                                        <span class="sidebar-normal">Edit Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="sidebar-mini-icon">S</span>
+                                        <span class="sidebar-normal">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="index.html">
+                            <i class="jam jam-home"></i>
+                            <p>Главная</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="orders.html">
+                            <i class="jam jam-document"></i>
+                            <p>Наряды</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="stock.html">
+                            <i class="jam jam-box"></i>
+                            <p>Склад</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="books.html">
+                            <i class="jam jam-book"></i>
+                            <p>Справочники</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="jam jam-pie-chart"></i>
+                            <p>Отчеты</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="jam jam-cog"></i>
+                            <p>Настройки</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel" id="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="#" onclick="history.back(); return false;"><i class="jam jam-arrow-left"></i>&nbsp;Наряды</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <form>
+                            <div class="input-group no-border">
+                                <input type="text" value="" class="form-control" placeholder="Поиск...">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="jam jam-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-md">
+                <div class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="d-block d-sm-flex align-items-center">
+                            <h3 class="text-white font-weight-100">Добавление наряда</h3>
+                            <button class="btn btn-primary d-block d-md-inline-block font-weight-bold mt-4 mb-5 my-sm-0 ml-0 ml-sm-auto shadow-sm text-decoration-none text-uppercase" onclick="$('.content form')[0].submit(); return false;">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <form action="#" method="post">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-2">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h6 class="card-title text-bold mt-0">Общая информация</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="input-clinic" class="control-label">Клиника</label>
+                                        <input type="text" name="clinic" id="input-clinic" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-doctor" class="control-label">Врач</label>
+                                        <input type="text" name="doctor" id="input-doctor" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-patient" class="control-label">Пациент</label>
+                                        <input type="text" name="patient" id="input-patient" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-datetime" class="control-label">Срок выполнения</label>
+                                        <input type="text" name="datetime" id="input-datetime" class="form-control datetimepicker">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h6 class="card-title text-bold mt-0">Комментарий</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <textarea name="comment" id="input-comment" class="form-control p-0" rows=15></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-5">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-flex-start">
+                                        <h6 class="card-title text-bold mt-0">Работы</h6>
+                                        <button type="button" class="ml-auto btn btn-outline-primary mt-0 shadow-sm font-weight-bold add-button" data-add-type="work">Добавить</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center text-muted p-4 empty-text">Нет работ</p>
+                                    <table class="table table-shopping d-none" data-type="work" style="table-layout: auto;">
+                                        <thead class="text-primary font-weight-bold">
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">ID</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Наименование</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Количество</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Действия</p>
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="d-none">
+                                                <input type="hidden" name="works[]" value='{"id": $id, "count": $count}'>
+                                                <th scope="col">$id</th>
+                                                <td>$name</td>
+                                                <td>$count</td>
+                                                <td><a href="#" class="text-danger remove-link"><i class="jam jam-trash"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-5">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <div class="d-flex align-items-flex-start">
+                                        <h6 class="card-title text-bold mt-0">Операции</h6>
+                                        <button type="button" class="ml-auto btn btn-outline-primary mt-0 shadow-sm font-weight-bold add-button" data-add-type="operation">Добавить</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-center text-muted p-4 empty-text">Нет операций</p>
+                                    <table class="table table-shopping d-none" data-type="operation" style="table-layout: auto;">
+                                        <thead class="text-primary font-weight-bold">
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">ID</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Наименование</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Количество</p>
+                                            </th>
+                                            <th style="max-width: 12.5%;">
+                                                <p class="font-weight-bold">Действия</p>
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="d-none">
+                                                <input type="hidden" name="operations[]" value='{"id": $id, "count": $count}'>
+                                                <th scope="col">$id</th>
+                                                <td>$name</td>
+                                                <td>$count</td>
+                                                <td><a href="#" class="text-danger remove-link"><i class="jam jam-trash"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <footer class="footer">
+                        <div class=" container-fluid ">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://presentation.creative-tim.com">
+                  About Us
+                </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="copyright" id="copyright">
+                                &copy;
+                                <script>
+                                    document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+                                </script>, Designed by
+                                <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+                                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modals">
+        <!-- Modal -->
+        <div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="modal-add-title" aria-hidden="true">
+            <div class="modal-dialog  modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-add-title">Добавить&nbsp;<span></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label" for="modal-add-input-name"></label>
+                            <input id="modal-add-input-name" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="modal-add-input-count">Количество</label>
+                            <input id="modal-add-input-count" min=1 type="number" placeholder="Количество" class="form-control" value=1 />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" id="modal-add-submit-btn">Добавить в наряд</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="js/bootstrap-switch.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="js/sweetalert2.min.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="js/jquery.validate.min.js"></script>
+    <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="js/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="js/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+    <script src="js/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="js/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="js/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="js/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="js/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="js/nouislider.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chart JS -->
+    <script src="js/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="js/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="js/now-ui-dashboard.min.js?v=1.4.1" type="text/javascript"></script>
+
+    <!-- Page JS -->
+    <script id="order-add.js">
+        jQuery(function($) {
+            var $addBtns = $(".add-button"),
+                $addModal = $("#modal-add"),
+                $addModalTitleSpan = $("#modal-add-title>span"),
+                $addModalSubmitBtn = $("#modal-add-submit-btn"),
+                $addModalNameInput = $("#modal-add-input-name"),
+                $addModalNameLabel = $addModalNameInput.siblings("label"),
+                $addModalCountInput = $("#modal-add-input-count"),
+                $blankRow,
+                $table,
+                $emptyText,
+                addType;
+
+            function escapeHTML(str) {
+                return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+
+            function addRow() {
+                var id = parseInt(Math.random() * 8000), // TODO: Где-то брать id работы 
+                    name = $addModalNameInput.val(),
+                    count = parseInt($addModalCountInput.val()),
+                    rowHtml = $blankRow[0].outerHTML,
+                    $row;
+                if (isNaN(count) || escapeHTML(name) != name) {
+                    alert("Фигню ввел какую-то ;("); // TODO обработка этого 
+                    return false;
+                }
+                $addModalCountInput.val(1);
+                $addModalNameInput.val("");
+                rowHtml = rowHtml.replace(/\$id/g, id)
+                    .replace("$name", escapeHTML(name)).replace(/\$count/g, count); // TODO: Найти либу для этого
+                $row = $(rowHtml);
+                $row.removeClass("d-none").insertBefore($blankRow);
+                $row.find(".remove-link").click(removeRow)
+                if ($table.hasClass("d-none")) {
+                    $table.removeClass("d-none");
+                }
+                if (!$emptyText.hasClass("d-none")) {
+                    $emptyText.addClass("d-none");
+                }
+                $addModal.modal("hide");
+                return false;
+            }
+
+            function removeRow(event) {
+                event.preventDefault();
+                $table = $(this).parents("table");
+                $emptyText = $table.parents(".card").find(".empty-text");
+                $(this).parents("tr").remove();
+                if ($table.find("tr").length == 2) {
+                    $table.addClass("d-none");
+                    $emptyText.removeClass("d-none");
+                }
+                return false;
+            }
+
+            $addBtns.click(function() {
+                addType = $(this).data("add-type");
+                $table = $("table[data-type=" + addType + "]");
+                $emptyText = $table.parents(".card").find(".empty-text");
+                $blankRow = $table.find("tr").last();
+                if (addType == "work") {
+                    $addModalNameLabel.text("Работа");
+                    $addModalTitleSpan.text("работу");
+                } else {
+                    $addModalNameLabel.text("Операция");
+                    $addModalTitleSpan.text("операцию");
+                }
+                $addModal.modal();
+                return false;
+            });
+            $addModalSubmitBtn.click(addRow);
+            $("#input-datetime").datetimepicker({
+                icons: {
+                    time: "jam jam-clock",
+                    date: "jam jam-calendar",
+                    up: "jam jam-chevron-up",
+                    down: "jam jam-chevron-down",
+                    previous: 'jam jam-chevron-left',
+                    next: 'jam jam-chevron-right',
+                    today: 'jam jam-calendar-alt',
+                    clear: 'jam jam-trash',
+                    close: 'jam jam-remove'
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
