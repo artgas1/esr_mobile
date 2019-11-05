@@ -45,4 +45,5 @@ def register(request):
                    'registered': registered})
 
 
-
+def vue(request, *args):
+    return render(request, 'index.html', {})

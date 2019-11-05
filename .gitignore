@@ -128,4 +128,6 @@ dmypy.json
 migrations/
 
 .idea/
-/lab/lab_web/migrations/
+lab/lab_web/migrations/
+
+*.pyc

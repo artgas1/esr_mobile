@@ -14,10 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from . import settings
+from django.conf.urls.static import static
+from lab_web.views.views import vue as vue_view, login as login_view, register as register_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('lab_web.urls_test')),
     path('api/', include('lab_web.views.urls_api')),
-]
+    path('login/', login_view),
+    path('register/', register_view),
+    # TODO check this regexp
+    #re_path(r"^(.*)$", vue_view),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

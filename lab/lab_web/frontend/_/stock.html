@@ -1,0 +1,196 @@
+<!--
+
+=========================================================
+* Now UI Dashboard PRO - v1.4.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-pro
+* Copyright 2019 Creative Tim (http://www.creative-tim.com)
+
+* Designed by www.invisionapp.com Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Склад
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="css/jam.min.css" type="text/css">
+    <!-- CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/now-ui-dashboard-compiled.css?v=1.4.1" rel="stylesheet" />
+    <!-- Custom styles -->
+    <style>
+        .zub-order-progress {
+            width: 10px;
+            height: 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .zub-table-image-column {
+            max-width: 120px;
+            width: 14%;
+            text-align: center;
+        }
+        
+        .zub-table-image {
+            max-width: calc(100% - 16px);
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        
+        </div>
+    </div>
+
+    <div id="modals">
+        <!-- Modal -->
+        <div class="modal fade" id="modal-release-material" tabindex="-1" role="dialog" aria-labelledby="modal-release-material-title" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-release-material-title">Списать материал</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">Материал</label>
+                            <input type="text" value="Золото" class="form-control" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Количество</label>
+                            <div class="input-group">
+                                <input min=0 type="number" placeholder="Количество" class="form-control" />
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        г
+                                    </div>
+                                </div>
+
+                            </div>
+                            <small class="form-text text-muted">Максимальное количество: <span></span>&nbsp;<span></span></small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary">Списать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="js/plugins/moment.min.js"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="js/bootstrap-switch.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="js/sweetalert2.min.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="js/jquery.validate.min.js"></script>
+    <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="js/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="js/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+    <script src="js/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="js/bootstrap-tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="js/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="js/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="js/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="js/nouislider.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chart JS -->
+    <script src="js/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="js/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="js/now-ui-dashboard.min.js?v=1.4.1" type="text/javascript"></script>
+
+    <!-- Page Script -->
+    <script id="stock.js">
+        jQuery(function($) {
+            var $releaseModal = $("#modal-release-material"),
+                $nameInput = $releaseModal.find("input[type='text']").first(),
+                $amountInput = $releaseModal.find("input[type='number']").first(),
+                $unitEls = [$releaseModal.find(".input-group-text").first(), $releaseModal.find("small").find("span").last()],
+                $maxAmountEl = $releaseModal.find("small").find("span").first(),
+                materialData = {};
+
+            function checkAmountInputValue() {
+                if (new Number($(this).val()) > Number($(this).attr("max")) || new Number($(this).val()) < Number($(this).attr("min"))) {
+                    $(this).addClass("form-control-danger");
+                    $(this).parents(".form-group").addClass("has-danger");
+                } else {
+                    $(this).removeClass("form-control-danger");
+                    $(this).parents(".form-group").removeClass("has-danger");
+                }
+            }
+
+            function fillInReleaseModal() {
+                $amountInput.attr("value", "");
+                $nameInput.attr("value", "name" in materialData && materialData.name != null ? materialData.name : "");
+                $amountInput.attr("max", "max" in materialData && typeof materialData.max == "number" ? materialData.max : Infinity);
+                $unitEls.forEach((el) => el.text("unit" in materialData && materialData.unit != null ? materialData.unit : ""));
+                $maxAmountEl.text("max" in materialData && typeof materialData.max == "number" ? materialData.max : "");
+                $amountInput.keyup(checkAmountInputValue);
+                $amountInput.change(checkAmountInputValue);
+            }
+
+            function getDataFromReleaseModal() {
+                materialData.amount = new Number($amountInput.val());
+                return materialData;
+            }
+
+            $(".zub-release-material").click(function(e) {
+                e.preventDefault();
+                materialData = $(this).data("material");
+                fillInReleaseModal();
+                $("#modal-release-material").modal();
+                return false;
+            });
+            $releaseModal.find(".btn-primary").last().click(function() {
+                if ($releaseModal.find(".has-danger").length) {
+                    return false;
+                }
+                $releaseModal.modal('hide');
+                var data = getDataFromReleaseModal();
+                // send data here
+                alert(JSON.stringify(data));
+            });
+        });
+    </script>
+</body>
+
+</html>

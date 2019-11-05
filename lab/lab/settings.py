@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_registration',
     'django_extensions',
     'rest_framework.authtoken',
 ]
@@ -119,11 +120,27 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/test/test'
 
+INPUT_OUTPUT_DATE_FORMAT = "%d.%m.%Y"
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', )
+        'rest_framework.permissions.IsAuthenticated', ),
+    "DATE_INPUT_FORMATS": [INPUT_OUTPUT_DATE_FORMAT],
+    "DATE_FORMAT": INPUT_OUTPUT_DATE_FORMAT
+}
+
+DATE_FORMAT = INPUT_OUTPUT_DATE_FORMAT
+DATE_INPUT_FORMATS = [INPUT_OUTPUT_DATE_FORMAT]
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': False,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
 }

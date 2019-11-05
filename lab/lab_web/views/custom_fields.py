@@ -58,13 +58,10 @@ class PresentablePrimaryKeyRelatedField(
     pass
 
 
-class UserFilteredPrimaryKey(serializers.PrimaryKeyRelatedField):
-    def __init__(self, queryset):
-        super(UserFilteredPrimaryKey, self).__init__()
-        print(queryset)
-        self.queryset = queryset
-
+class UserFilteredPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
-        user = self.context['request'].user
-        queryset = self.queryset.filter(user=user)
-        return queryset
+        request = self.context.get('request', None)
+        queryset = super(UserFilteredPrimaryKeyRelatedField, self).get_queryset()
+        if not request or not queryset:
+            return None
+        return queryset.filter(user=request.user)
